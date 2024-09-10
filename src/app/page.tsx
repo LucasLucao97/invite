@@ -32,7 +32,7 @@ export default function LanguageSelector() {
     if (isNameValid) {
       router.push(`/birthdayInvitation/${name}?language=${language}`)
     } else {
-      alert('Lo siento, tu nombre no está en la lista de invitados.')
+      alert('This name is not on the guest list.')
     }
   }
 
