@@ -92,7 +92,8 @@ export default function Component() {
 					</div>
 					{/* biome-ignore lint/complexity/useLiteralKeys: <explanation> */}
           <a href="https://wa.me/5491135947854?text=👍" className={styles["zap"]}>
-						<FaWhatsapp /> Confirmar
+						<FaWhatsapp /> 
+						<p> Confirmar</p>
 					</a>
 				</CardContent>
 			</Card>

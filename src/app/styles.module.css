@@ -31,10 +31,15 @@
 }
 
 .language-selector-label {
+  color: black !important;
   font-size: 1.125rem;
   font-weight: 500;
   display: block;
   margin-bottom: 0.5rem;
+}
+
+.input-nome {
+  color: black !important;
 }
 
 .language-selector-input {
