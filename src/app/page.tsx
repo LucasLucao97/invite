@@ -1,21 +1,39 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Button } from "@/components/ui/button"
-import { useRouter } from 'next/navigation';
-import styles from "./styles.module.css";
+import { useRouter } from 'next/navigation'
+import styles from "./styles.module.css"
+import allowedNamesData from './allowed-names.json'
 
 export default function LanguageSelector() {
-  const router = useRouter();
+  const router = useRouter()
   const [name, setName] = useState('')
   const [language, setLanguage] = useState('')
+  const [isNameValid, setIsNameValid] = useState(false)
+  const [allowedNames, setAllowedNames] = useState<string[]>([])
+
+  useEffect(() => {
+    setAllowedNames(allowedNamesData.allowedNames)
+  }, [])
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputName = e.target.value
+    const capitalizedName = inputName.charAt(0).toUpperCase() + inputName.slice(1)
+    setName(capitalizedName)
+    setIsNameValid(allowedNames.includes(capitalizedName))
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    router.push(`/birthdayInvitation/${name}?language=${language}`);
+    if (isNameValid) {
+      router.push(`/birthdayInvitation/${name}?language=${language}`)
+    } else {
+      alert('Lo siento, tu nombre no está en la lista de invitados.')
+    }
   }
 
   return (
@@ -28,12 +46,15 @@ export default function LanguageSelector() {
             <Input
               id="name"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={handleNameChange}
               placeholder="Enter your name"
               style={{color: "black !important"}}
               required
               className="input-nome"
             />
+            {name && !isNameValid && (
+              <p className={styles['error-message']}>This name is not on the guest list.</p>
+            )}
           </div>
           <div>
             <Label className={styles['language-selector-label']}>Choose your language</Label>
@@ -54,7 +75,7 @@ export default function LanguageSelector() {
               </div>
             </RadioGroup>
           </div>
-          <Button type="submit" className={styles['language-selector-submit-button']}>
+          <Button type="submit" className={styles['language-selector-submit-button']} disabled={!isNameValid || !language}>
             Confirm Selection
           </Button>
         </form>

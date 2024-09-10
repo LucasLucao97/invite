@@ -18,7 +18,7 @@ export default function Component() {
 
 	const searchParams = useSearchParams();
 	const language = searchParams.get("language") || "pt";
-	console.log(language);
+
 	useEffect(() => {
 		const targetDate = new Date("2024-09-21T18:00:00");
 

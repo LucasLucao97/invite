@@ -117,6 +117,10 @@
   background-color: #1d4ed8;
 }
 
+.error-message{
+ color: red;
+}
+
 /* Responsive adjustments */
 @media (max-width: 640px) {
   .language-selector-card {
